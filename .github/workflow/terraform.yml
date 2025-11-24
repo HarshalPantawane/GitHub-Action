@@ -1,0 +1,46 @@
+name: manual deploy
+on: 
+   workflow_dispatch:     # line for manual 
+   inputs:
+     apply:
+       description: "apply terraform changes?"
+       request: true
+       default: plan
+       type: choice
+       options: 
+         - plan
+         - apply
+         - destroy
+
+jobs:
+   terraform:
+     runs-on: ubuntu-latest
+
+     steps:
+      - name: checkout repo
+        uses: actions/checkout@v4
+      
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS-KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+      
+      - name: Terraform Init
+        run: terraform Init
+
+      - name: Terraform Validate
+        run: terraform validate  
+
+      - name: Terraform plan
+        run: terraform plan -out=tfplan
+
+      - name: Terraform Apply 
+        run: terraform apply -auto-approve tfplan  
+
+
+                     
