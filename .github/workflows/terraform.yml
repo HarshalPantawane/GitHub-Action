@@ -39,13 +39,16 @@ jobs:
         run: terraform validate  
 
       - name: Terraform plan
-        run: terraform plan -out=tfplan
         if:  ${{ github.event.inputs.action == 'apply' }}
+        run: terraform plan -out=tfplan
+       
 
       - name: Terraform Apply 
-        run: terraform apply -auto-approve tfplan 
         if: ${{ github.event.inputs.action == 'apply' }}
+        run: terraform apply -auto-approve tfplan 
+        
 
       - name: terraform Destroy
-        run: terraform destroy -auto-approve 
         if: ${{ github.event.inputs.action == 'destroy' }}
+        run: terraform destroy -auto-approve 
+      
