@@ -1,16 +1,19 @@
 name: Manual Deploy
+
+
+
 on: 
    workflow_dispatch:     # line for manual 
-   inputs:
-     apply:
-       description: "apply terraform changes?"
-       request: true
-       default: plan
-       type: choice
-       options: 
-         - plan
-         - apply
-         - destroy
+       inputs:
+           action:
+             description: "apply terraform changes?"
+             required: true
+             default: plan
+             type: choice
+             options: 
+               - plan
+               - apply
+               - destroy
 
 jobs:
    terraform:
