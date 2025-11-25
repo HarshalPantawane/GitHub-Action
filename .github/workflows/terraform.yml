@@ -1,28 +1,21 @@
-name: auto Deploy
+name: Manual Deploy
 
 
 
 on: 
 
-     ##### manual process ###
-   # workflow_dispatch:     # line for manual 
-   #     inputs:
-   #         action:
-   #           description: "apply terraform changes?"
-   #           required: true
-   #           default: plan
-   #           type: choice
-   #           options: 
-   #             - apply
-   #             - destroy
+     #### manual process ###
+   workflow_dispatch:     # line for manual 
+       inputs:
+           action:
+             description: "apply terraform changes?"
+             required: true
+             default: plan
+             type: choice
+             options: 
+               - apply
+               - destroy
 
-       ###### auto process ####
-
-        push:
-          branches:
-            - main
-
-   
 
 jobs:
    terraform:
