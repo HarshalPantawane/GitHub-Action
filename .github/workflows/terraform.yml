@@ -40,7 +40,7 @@ jobs:
 
       - name: Terraform plan
         if:  ${{ github.event.inputs.action == 'apply' }}
-        run: terraform plan -out=tfplan
+        run: terraform plan -out=tfplan       # No new plan calculation to apply
        
 
       - name: Terraform Apply 
